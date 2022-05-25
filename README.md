@@ -102,7 +102,82 @@ Criar um modal para praticar web componenent
 
 ```
 
+##
+- Outra feature interessante e o uso de dois slot
+- Para  e preciso em javascript nomear o nome do slot com a propriedade name, <slot name="alguma coisa"></slot>
+- E no html usar a propriedade slot
 
+
+``` html
+<kvm-modal>
+      <h1 slot="title">Confirm payment</h1>
+      <p>With your confirmation you agree to pay the full amount!</p>
+    </kvm-modal>
+
+```
+
+```js
+this.shadowRoot.innerHTML = `
+        <style>
+            .background {
+                display: none;
+                justify-content: center;
+                align-items:flex-start;
+                position: fixed;
+                top: 0;
+                left: 0;
+                background-color: rgba(0,0,0,0.75);
+                width:100%;
+                height: 100vh;
+            }
+            :host([opened]) .modal,
+            :host([opened]) .background {
+                 display:flex
+            }
+            :host([opened]) .modal {
+               margin-top: 15px;
+            }
+            .modal {
+                margin-top: 23vh;
+                display:none;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 50%;
+                padding:25px 15px;
+                background-color: white;
+                box-shadow:0px 2px 8px rgba(0,0,0,0.26);
+                gap: 35px;
+                border-radius: 3px;
+                transition: all ease-in-out 0.3s;
+            }
+            p {
+               font-size: 17px;
+               line-height: 23px;
+            }
+            ::slotted(h1) {
+              border-bottom: 1px solid black;
+              font-size: 20px;
+            }
+            .actions {
+               border-top: 1px solid black;
+               display: flex;
+               padding: 15px;
+               gap: 10px;
+               justify-content:flex-end;
+            }
+        </style>
+        <div class="background">
+            <div class="modal">
+                <slot name="title"></slot>
+                <slot></slot>
+                <div class="actions" >
+                    <button class="cancel"  >Cancel</button>
+                    <button class="confirm" >Confirm</button>
+                </div>
+            </div>
+        </div>
+    `;
+```
 
 
 
